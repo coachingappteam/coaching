@@ -1,22 +1,56 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
+import './feed/feed_screen.dart';
+import './my_teams/my_teams_screen.dart';
+import './statistics/statistics_screen.dart';
+import './more/more_screen.dart';
+
+class TabNavigation extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomeState();
+    return _TabNavigationState();
   }
 }
 
-class _HomeState extends State<Home> {
+class _TabNavigationState extends State<TabNavigation> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Text> _widgetTitles = <Text>[
+    Text(
+      'Home',
+    ),
+    Text(
+      'My Teams',
+    ),
+    Text(
+      'Statistics',
+    ),
+    Text(
+      'More',
+    ),
+  ];
+  static List<Widget> _widgetOptions = <Widget>[
+    FeedScreen(),
+    MyTeamsScreen(),
+    StatisticsScreen(),
+    MoreScreen()
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(0, 125, 167, 1),
-        title: Text('My Flutter App'),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0, // this will be set when a new tab is tapped
+        unselectedItemColor: Color.fromRGBO(207,216,220, 1),
         items: [
           BottomNavigationBarItem(
             icon: new Icon(Icons.home),
@@ -35,6 +69,9 @@ class _HomeState extends State<Home> {
             title: Text('More'),
           ),
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Color.fromRGBO(0, 125, 167, 1),
+        onTap: _onItemTapped,
       ),
     );
   }
