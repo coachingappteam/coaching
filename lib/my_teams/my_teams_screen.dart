@@ -102,13 +102,13 @@ class MyTeamsScreen extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Color.fromRGBO(0, 125, 167, 1),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-          )
-        ],
       ),
       body: makeBody,
+      floatingActionButton: FloatingActionButton(
+        splashColor: Color.fromRGBO(128, 206, 215, 1),
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

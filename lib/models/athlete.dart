@@ -1,15 +1,23 @@
-import 'package:flutter/material.dart';
-
-class Athlete{
+class Athlete {
   final int id;
-  final String name;
+  final String firstName;
+  final String lastName;
+  final String phone;
+  final String email;
+  final String height;
   final double weight;
+  final String birthDate;
   final String sex;
 
   const Athlete({
-    @required this.id,
-    @required this.name,
-    @required this.weight,
-    @required this.sex
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.phone,
+    this.email,
+    this.height,
+    this.weight,
+    this.birthDate,
+    this.sex,
   });
 }

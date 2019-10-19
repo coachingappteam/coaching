@@ -4,12 +4,12 @@ import 'athlete_details_screen.dart';
 import '../../models/athlete.dart';
 import 'add_athletes_screen.dart';
 
-class AthletesScreen extends StatefulWidget {
+class AthleteResults extends StatefulWidget {
   @override
-  _AthletesState createState() => _AthletesState();
+  _AthlereResultsState createState() => _AthlereResultsState();
 }
 
-class _AthletesState extends State<AthletesScreen> {
+class _AthlereResultsState extends State<AthleteResults> {
   @override
   Widget build(BuildContext context) {
     List<Athlete> getAthletes() {
@@ -54,14 +54,14 @@ class _AthletesState extends State<AthletesScreen> {
     final list = getAthletes();
     ListTile makeListTile(Athlete athlete) =>
         ListTile(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AthleteDetailsScreen(athlete: athlete,),
-          ),
-        );
-      },
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AthleteDetailsScreen(athlete: athlete,),
+              ),
+            );
+          },
           contentPadding:
           EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           leading: Container(
