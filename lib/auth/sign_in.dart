@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../tab_navigation.dart';
+import '../main_color.dart';
 
 class SignIn extends StatefulWidget {
   _SigInState createState() => _SigInState();
@@ -11,20 +12,10 @@ class _SigInState extends State<SignIn> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Color.fromRGBO(0, 125, 167, 1),
+      backgroundColor: MainColor().mainColor(),
       body: Column(
         children: <Widget>[
           ListTile(),
-//          ListTile(
-//            title: Text(
-//              'Welcome Back!',
-//              style: TextStyle(
-//                  color: Colors.white,
-//                  fontSize: 30.0,
-//                  decorationStyle: TextDecorationStyle.solid),
-//              textAlign: TextAlign.center,
-//            ),
-//          ),
           ListTile(
             leading: const Icon(
               Icons.alternate_email,
@@ -69,7 +60,7 @@ class _SigInState extends State<SignIn> {
                 ' Sign In ',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Color.fromRGBO(0, 125, 167, 1),
+                    color: MainColor().mainColor(),
                     fontSize: 20.0,
                     backgroundColor: Colors.white),
               ),

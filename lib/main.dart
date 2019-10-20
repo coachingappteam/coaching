@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './tab_navigation.dart';
 import 'auth/auth_screen.dart';
+import 'main_color.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,10 +28,10 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         appBarTheme: AppBarTheme(brightness: Brightness.light),
         primarySwatch: customColor,
-        accentColor: Color.fromRGBO(0, 50, 73, 1),
+        accentColor: MainColor().darkMainColor(),
         primaryTextTheme: TextTheme(
           title: TextStyle(
-            color: Color.fromRGBO(0, 125, 167, 1),
+            color: MainColor().mainColor(),
           ),
         ),
       ),

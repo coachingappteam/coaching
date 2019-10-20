@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'athlete_results.dart';
 import '../../models/athlete.dart';
+import '../../main_color.dart';
 
 class AthleteDetailsScreen extends StatefulWidget {
   final Athlete athlete;
@@ -36,11 +37,11 @@ class _AthleteDetailsSate extends State<AthleteDetailsScreen> {
         appBar: AppBar(
           brightness: Brightness.light,
           iconTheme: IconThemeData(
-            color: Color.fromRGBO(0, 125, 167, 1),
+            color: MainColor().mainColor(),
           ),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(
-            color: Color.fromRGBO(0, 125, 167, 1),
+            color: MainColor().mainColor(),
           ),
           title: Text(this.athlete.firstName + ' ' + this.athlete.lastName),
           actions: <Widget>[
@@ -49,19 +50,19 @@ class _AthleteDetailsSate extends State<AthleteDetailsScreen> {
             )
           ],
           bottom: TabBar(
-            labelColor: Color.fromRGBO(0, 125, 167, 1),
+            labelColor: MainColor().mainColor(),
             tabs: <Widget>[
               Tab(
                 icon: Icon(
                   Icons.list,
-                  color: Color.fromRGBO(0, 125, 167, 1),
+                  color: MainColor().mainColor(),
                 ),
                 text: 'Results',
               ),
               Tab(
                 icon: Icon(
                   Icons.check,
-                  color: Color.fromRGBO(0, 125, 167, 1),
+                  color: MainColor().mainColor(),
                 ),
                 text: 'Attendance',
               ),
@@ -69,7 +70,10 @@ class _AthleteDetailsSate extends State<AthleteDetailsScreen> {
           ),
         ),
         body: TabBarView(
-          children: <Widget>[AthleteResults(), AthleteResults()],
+          children: <Widget>[
+            AthleteResults(),
+            AthleteResults(),
+          ],
         ),
       ),
     );

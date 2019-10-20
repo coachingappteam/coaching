@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../models/team.dart';
-import 'team_information_screen.dart';
+import 'teams_more_options_screen.dart';
 import './athletes/athletes_screen.dart';
 import './coaches/coaches_screen.dart';
+import '../main_color.dart';
 
 class TeamsDetail extends StatefulWidget {
   final Team team;
@@ -23,7 +24,7 @@ class _TabsScreenState extends State<TeamsDetail> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => TeamInformationScreen(
+        builder: (context) => TeamsMoreOptionsScreen(
           team: team,
         ),
       ),
@@ -33,16 +34,16 @@ class _TabsScreenState extends State<TeamsDetail> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           brightness: Brightness.light,
           iconTheme: IconThemeData(
-            color: Color.fromRGBO(0, 125, 167, 1),
+            color: MainColor().mainColor(),
           ),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(
-            color: Color.fromRGBO(0, 125, 167, 1),
+            color: MainColor().mainColor(),
           ),
           title: Text(this.team.teamName),
           actions: <Widget>[
@@ -52,28 +53,21 @@ class _TabsScreenState extends State<TeamsDetail> {
             )
           ],
           bottom: TabBar(
-            labelColor: Color.fromRGBO(0, 125, 167, 1),
+            labelColor: MainColor().mainColor(),
             tabs: <Widget>[
               Tab(
                 icon: Icon(
                   Icons.description,
-                  color: Color.fromRGBO(0, 125, 167, 1),
+                  color: MainColor().mainColor(),
                 ),
                 text: 'Workouts',
               ),
               Tab(
                 icon: Icon(
                   Icons.pool,
-                  color: Color.fromRGBO(0, 125, 167, 1),
+                  color: MainColor().mainColor(),
                 ),
                 text: 'Athletes',
-              ),
-              Tab(
-                icon: Icon(
-                  Icons.person,
-                  color: Color.fromRGBO(0, 125, 167, 1),
-                ),
-                text: 'Coaches',
               ),
             ],
           ),
@@ -82,7 +76,6 @@ class _TabsScreenState extends State<TeamsDetail> {
           children: <Widget>[
             AthletesScreen(),
             AthletesScreen(),
-            CoachesScreen()
           ],
         ),
       ),

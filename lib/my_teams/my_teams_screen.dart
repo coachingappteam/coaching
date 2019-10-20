@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'teams_detail_screen.dart';
 import '../models/team.dart';
+import 'add_team_screen.dart';
+import '../main_color.dart';
 
 class MyTeamsScreen extends StatelessWidget {
   static final list = [
@@ -54,7 +56,7 @@ class MyTeamsScreen extends StatelessWidget {
                     right: new BorderSide(width: 1.0, color: Colors.white24))),
             child: Icon(
               Icons.pool,
-              color: Color.fromRGBO(0, 125, 167, 1),
+              color: MainColor().mainColor(),
             ),
           ),
           title: Text(
@@ -65,7 +67,7 @@ class MyTeamsScreen extends StatelessWidget {
             children: <Widget>[
               Icon(
                 Icons.linear_scale,
-                color: Color.fromRGBO(0, 125, 167, 1),
+                color: MainColor().mainColor()
               ),
               Text(" Description ", style: TextStyle(color: Colors.black))
             ],
@@ -100,13 +102,20 @@ class MyTeamsScreen extends StatelessWidget {
         brightness: Brightness.light,
         title: Text('My Teams'),
         iconTheme: IconThemeData(
-          color: Color.fromRGBO(0, 125, 167, 1),
+          color: MainColor().mainColor(),
         ),
       ),
       body: makeBody,
       floatingActionButton: FloatingActionButton(
-        splashColor: Color.fromRGBO(128, 206, 215, 1),
-        onPressed: () {},
+        splashColor: MainColor().lightMainColor(),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddTeamScreen(),
+            ),
+          );
+        },
         child: Icon(Icons.add),
       ),
     );

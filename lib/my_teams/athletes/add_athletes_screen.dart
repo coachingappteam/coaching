@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import '../../models/athlete.dart';
+import '../../main_color.dart';
 
 class AddAthletesScreen extends StatefulWidget {
   _AddAthletesScreenState createState() => _AddAthletesScreenState();
@@ -15,15 +16,19 @@ class _AddAthletesScreenState extends State<AddAthletesScreen> {
       appBar: new AppBar(
         brightness: Brightness.light,
         actionsIconTheme: IconThemeData(
-          color: Color.fromRGBO(0, 125, 167, 1),
+          color: MainColor().mainColor(),
         ),
         iconTheme: IconThemeData(
-          color: Color.fromRGBO(0, 125, 167, 1),
+          color: MainColor().mainColor(),
         ),
         backgroundColor: Colors.white,
         title: new Text('Add new athlete'),
         actions: <Widget>[
-          new IconButton(icon: const Icon(Icons.save), onPressed: () {Navigator.pop(context);})
+          new IconButton(
+              icon: const Icon(Icons.save),
+              onPressed: () {
+                Navigator.pop(context);
+              })
         ],
       ),
       body: new Column(

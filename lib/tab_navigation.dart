@@ -4,6 +4,7 @@ import './feed/feed_screen.dart';
 import './my_teams/my_teams_screen.dart';
 import './statistics/statistics_screen.dart';
 import './more/more_screen.dart';
+import 'main_color.dart';
 
 class TabNavigation extends StatefulWidget {
   @override
@@ -50,7 +51,7 @@ class _TabNavigationState extends State<TabNavigation> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Color.fromRGBO(207,216,220, 1),
+        unselectedItemColor: Colors.grey,
         items: [
           BottomNavigationBarItem(
             icon: new Icon(Icons.home),
@@ -70,7 +71,7 @@ class _TabNavigationState extends State<TabNavigation> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromRGBO(0, 125, 167, 1),
+        selectedItemColor: MainColor().mainColor(),
         onTap: _onItemTapped,
       ),
     );

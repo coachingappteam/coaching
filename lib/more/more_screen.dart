@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../main_color.dart';
+
 class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -17,14 +19,14 @@ class MoreScreen extends StatelessWidget {
             height: 40,
             child: IconButton(
               icon: Icon(Icons.settings),
-              color: Color.fromRGBO(0, 125, 167, 1),
+              color: MainColor().mainColor(),
             ),
           ),
           Container(
             height: 40,
             child: IconButton(
               icon: Icon(Icons.supervised_user_circle),
-              color: Color.fromRGBO(0, 125, 167, 1),
+              color: MainColor().mainColor(),
               splashColor: Colors.pink,
 
             ),
@@ -33,7 +35,7 @@ class MoreScreen extends StatelessWidget {
             height: 40,
             child: IconButton(
               icon: Icon(Icons.tune),
-              color: Color.fromRGBO(0, 125, 167, 1),
+              color: MainColor().mainColor(),
             ),
           ),
         ],

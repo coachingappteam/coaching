@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'create_account.dart';
 import 'sign_in.dart';
+import '../main_color.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -25,12 +26,12 @@ class _AuthScreenState extends State<AuthScreen> {
           iconTheme: IconThemeData(
             color: Colors.white,
           ),
-          backgroundColor: Color.fromRGBO(0, 125, 167, 1),
+          backgroundColor: MainColor().mainColor(),
           actionsIconTheme: IconThemeData(
             color: Colors.white,
           ),
           bottom: TabBar(
-            indicatorColor: Color.fromRGBO(0, 125, 167, 1),
+            indicatorColor: Color.fromRGBO(0, 50, 73, 1),
             labelColor: Colors.white,
             tabs: <Widget>[
               Tab(

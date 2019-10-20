@@ -4,6 +4,8 @@ import 'athlete_details_screen.dart';
 import '../../models/athlete.dart';
 import 'add_athletes_screen.dart';
 
+import '../../main_color.dart';
+
 class AthleteResults extends StatefulWidget {
   @override
   _AthlereResultsState createState() => _AthlereResultsState();
@@ -71,7 +73,7 @@ class _AthlereResultsState extends State<AthleteResults> {
                     right: new BorderSide(width: 1.0, color: Colors.white24))),
             child: Icon(
               Icons.pool,
-              color: Color.fromRGBO(0, 125, 167, 1),
+              color: MainColor().mainColor(),
             ),
           ),
           title: Text(
@@ -82,7 +84,7 @@ class _AthlereResultsState extends State<AthleteResults> {
             children: <Widget>[
               Icon(
                 Icons.mail_outline,
-                color: Color.fromRGBO(0, 125, 167, 1),
+                color: MainColor().mainColor(),
               ),
               Text(athlete.email, style: TextStyle(color: Colors.black))
             ],
@@ -115,7 +117,7 @@ class _AthlereResultsState extends State<AthleteResults> {
       backgroundColor: Colors.white,
       body: makeBody,
       floatingActionButton: FloatingActionButton(
-        splashColor: Color.fromRGBO(128, 206, 215, 1),
+        splashColor: MainColor().lightMainColor(),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(
             builder: (context) => AddAthletesScreen(),

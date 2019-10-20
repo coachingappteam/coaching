@@ -1,99 +1,208 @@
 import 'package:flutter/material.dart';
 
+import '../tab_navigation.dart';
+import '../main_color.dart';
+
 class CreateAccount extends StatefulWidget {
+  @override
   _CreateAccountState createState() => _CreateAccountState();
 }
 
 class _CreateAccountState extends State<CreateAccount> {
+  var _firstIndex = 0;
+  var _textValidations = [
+    [
+      true,
+      true,
+      true,
+    ],
+    [
+      true,
+      true,
+      true,
+    ],
+  ];
+  var controllers = [
+    [
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+    ],
+    [
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+    ],
+  ];
+  var answers = [
+    [
+      '',
+      '',
+      '',
+    ],
+    [
+      '',
+      '',
+      '',
+    ]
+  ];
+
+  void nextForm() {
+    var copyV  = _textValidations;
+    var isTextEmpty = false;
+    for (int i = 0; i < controllers[_firstIndex].length; i++) {
+      var str = controllers[_firstIndex][i].text;
+      if (identical(str, '')) {
+        copyV[_firstIndex][i] = false;
+        isTextEmpty = true;
+      }
+    }
+    if (!isTextEmpty) {
+      if (_firstIndex == 1) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => TabNavigation()),
+        );
+      } else {
+        setState(() {
+          print(_firstIndex);
+          _firstIndex++;
+        });
+      }
+    }
+    else{
+      setState(() {
+        _textValidations = copyV;
+      });
+    }
+  }
+
+  goBack() {
+    if (_firstIndex == 1) {
+      setState(() {
+        _firstIndex--;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final buttonText = [
+      Text(
+        'Next',
+        style: TextStyle(color: Colors.white),
+      ),
+      Text(
+        'Create Account',
+        style: TextStyle(color: Colors.white),
+      ),
+    ];
+    final createQuestions = [
+      ['Email', 'Password', 'Confirm Password'],
+      ['First Name', 'Last Name', 'Phone'],
+    ];
+    final createIcons = [
+      [
+        Icon(
+          Icons.alternate_email,
+          color: Colors.white,
+        ),
+        Icon(
+          Icons.lock_open,
+          color: Colors.white,
+        ),
+        Icon(
+          Icons.lock_outline,
+          color: Colors.white,
+        )
+      ],
+      [
+        Icon(
+          Icons.assignment_ind,
+          color: Colors.white,
+        ),
+        Icon(
+          Icons.assignment_ind,
+          color: Colors.white,
+        ),
+        Icon(
+          Icons.phone,
+          color: Colors.white,
+        )
+      ],
+    ];
+
+    Widget backButton() {
+      if (_firstIndex == 1) {
+        return FlatButton(
+          splashColor: MainColor().lightMainColor(),
+          onPressed: goBack,
+          child: Text(
+            'Go Back',
+            style: TextStyle(color: Colors.white),
+          ),
+        );
+      } else
+        return ListTile();
+    }
+
+    Column createColumn() {
+      return Column(
+        children: <Widget>[
+          ListTile(
+            leading: createIcons[_firstIndex][0],
+            title: TextField(
+              style: TextStyle(color: Colors.white),
+              controller: controllers[_firstIndex][0],
+              decoration: InputDecoration(
+                labelStyle: TextStyle(color: Colors.white),
+                hintText: createQuestions[_firstIndex][0],
+                hintStyle: TextStyle(color: Colors.white),
+                errorText: !_textValidations[_firstIndex][0] ? 'Value Can\'t Be Empty' : null,
+              ),
+            ),
+          ),
+          ListTile(
+            leading: createIcons[_firstIndex][1],
+            title: TextField(
+              style: TextStyle(color: Colors.white),
+              controller: controllers[_firstIndex][1],
+              decoration: InputDecoration(
+                labelStyle: TextStyle(color: Colors.white),
+                hintText: createQuestions[_firstIndex][1],
+                hintStyle: TextStyle(color: Colors.white),
+                errorText: !_textValidations[_firstIndex][1] ? 'Value Can\'t Be Empty' : null,
+              ),
+            ),
+          ),
+          ListTile(
+            leading: createIcons[_firstIndex][2],
+            title: TextField(
+              style: TextStyle(color: Colors.white),
+              controller: controllers[_firstIndex][2],
+              decoration: InputDecoration(
+                labelStyle: TextStyle(color: Colors.white),
+                hintText: createQuestions[_firstIndex][2],
+                hintStyle: TextStyle(color: Colors.white),
+                errorText: !_textValidations[_firstIndex][2] ? 'Value Can\'t Be Empty' : null,
+              ),
+            ),
+          ),
+          ListTile(),
+          FlatButton(
+            splashColor: MainColor().lightMainColor(),
+            onPressed: nextForm,
+            child: buttonText[_firstIndex],
+          ),
+          backButton(),
+        ],
+      );
+    }
+
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Color.fromRGBO(0, 125, 167, 1),
-      body: Column(
-        children: <Widget>[
-          ListTile(),
-//          ListTile(
-//            title: Text(
-//              'Welcome Back!',
-//              style: TextStyle(
-//                  color: Colors.white,
-//                  fontSize: 30.0,
-//                  decorationStyle: TextDecorationStyle.solid),
-//              textAlign: TextAlign.center,
-//            ),
-//          ),
-          ListTile(
-            leading: const Icon(
-              Icons.alternate_email,
-              color: Colors.white,
-            ),
-            title: new TextField(
-              cursorColor: Colors.white,
-              style: TextStyle(
-                color: Colors.white,
-              ),
-              decoration: new InputDecoration(
-                hoverColor: Colors.white,
-                helperStyle: TextStyle(color: Colors.white),
-                hintStyle: TextStyle(color: Colors.white),
-                labelStyle: TextStyle(color: Colors.white),
-                hintText: "Email",
-              ),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.lock_open,
-              color: Colors.white,
-            ),
-            title: new TextField(
-              cursorColor: Colors.white,
-              style: TextStyle(
-                color: Colors.white,
-              ),
-              decoration: new InputDecoration(
-                helperStyle: TextStyle(color: Colors.white),
-                hintStyle: TextStyle(color: Colors.white),
-                labelStyle: TextStyle(color: Colors.white),
-                hintText: "Password",
-              ),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.lock_outline,
-              color: Colors.white,
-            ),
-            title: new TextField(
-              cursorColor: Colors.white,
-              style: TextStyle(
-                color: Colors.white,
-              ),
-              decoration: new InputDecoration(
-                helperStyle: TextStyle(color: Colors.white),
-                hintStyle: TextStyle(color: Colors.white),
-                labelStyle: TextStyle(color: Colors.white),
-                hintText: "Confirm Password",
-              ),
-            ),
-          ),
-          ListTile(),
-          ListTile(
-            title: Center(
-              child: Text(
-                ' Create Account ',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Color.fromRGBO(0, 125, 167, 1),
-                    fontSize: 20.0,
-                    backgroundColor: Colors.white),
-              ),
-            ),
-            onTap: () {},
-          ),
-        ],
-      ),
+      body: createColumn(),
+      backgroundColor: MainColor().mainColor(),
     );
   }
 }

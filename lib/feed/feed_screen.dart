@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../my_teams/teams_detail_screen.dart';
 import '../models/team.dart';
+import '../main_color.dart';
 
 class FeedScreen extends StatelessWidget {
   static final list = [
@@ -54,7 +55,7 @@ class FeedScreen extends StatelessWidget {
                     right: new BorderSide(width: 1.0, color: Colors.white24))),
             child: Icon(
               Icons.pool,
-              color: Color.fromRGBO(0, 125, 167, 1),
+              color: MainColor().mainColor(),
             ),
           ),
           title: Text(
@@ -65,7 +66,7 @@ class FeedScreen extends StatelessWidget {
             children: <Widget>[
               Icon(
                 Icons.linear_scale,
-                color: Color.fromRGBO(0, 125, 167, 1),
+                color: MainColor().mainColor(),
               ),
               Text(" Description ", style: TextStyle(color: Colors.black))
             ],
@@ -100,7 +101,7 @@ class FeedScreen extends StatelessWidget {
         brightness: Brightness.light,
         title: Text('Feed'),
         iconTheme: IconThemeData(
-          color: Color.fromRGBO(0, 125, 167, 1),
+          color: MainColor().mainColor(),
         ),
         actions: <Widget>[
           IconButton(
@@ -110,7 +111,7 @@ class FeedScreen extends StatelessWidget {
       ),
       body: makeBody,
       floatingActionButton: FloatingActionButton(
-        splashColor: Color.fromRGBO(128, 206, 215, 1),
+        splashColor: MainColor().lightMainColor(),
         onPressed: () {},
         child: Icon(Icons.add),
       ),
