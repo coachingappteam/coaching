@@ -8,6 +8,31 @@ class SignIn extends StatefulWidget {
 }
 
 class _SigInState extends State<SignIn> {
+  var _controllers = [TextEditingController(),TextEditingController(),];
+  var _textValidations = [true,true];
+
+  void signIn() {
+    var copyV = _textValidations;
+    var isTextEmpty = false;
+    for (int i = 0; i < _controllers.length; i++) {
+      var str = _controllers[i].text;
+      if (identical(str, '')) {
+        copyV[i] = false;
+        isTextEmpty = true;
+      }
+    }
+    if (!isTextEmpty) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => TabNavigation()),
+      );
+    } else {
+      setState(() {
+        _textValidations = copyV;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -22,6 +47,7 @@ class _SigInState extends State<SignIn> {
               color: Colors.white,
             ),
             title: new TextField(
+              controller: _controllers[0],
               cursorColor: Colors.white,
               style: TextStyle(
                 color: Colors.white,
@@ -32,6 +58,15 @@ class _SigInState extends State<SignIn> {
                 hintStyle: TextStyle(color: Colors.white),
                 labelStyle: TextStyle(color: Colors.white),
                 hintText: "Email",
+                errorStyle: TextStyle(color: MainColor().darkMainColor()),
+                errorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: MainColor().darkMainColor(),
+                  ),
+                ),
+                errorText: !_textValidations[0]
+                    ? 'Value Can\'t Be Empty'
+                    : null,
               ),
             ),
           ),
@@ -41,7 +76,9 @@ class _SigInState extends State<SignIn> {
               color: Colors.white,
             ),
             title: new TextField(
+              controller: _controllers[1],
               cursorColor: Colors.white,
+              obscureText: true,
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -50,6 +87,15 @@ class _SigInState extends State<SignIn> {
                 hintStyle: TextStyle(color: Colors.white),
                 labelStyle: TextStyle(color: Colors.white),
                 hintText: "Password",
+                errorStyle: TextStyle(color: MainColor().darkMainColor()),
+                errorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: MainColor().darkMainColor(),
+                  ),
+                ),
+                errorText: !_textValidations[1]
+                    ? 'Value Can\'t Be Empty'
+                    : null,
               ),
             ),
           ),
@@ -65,12 +111,7 @@ class _SigInState extends State<SignIn> {
                     backgroundColor: Colors.white),
               ),
             ),
-            onTap: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(
-                builder: (context) =>
-                    TabNavigation(),
-              ),);
-            },
+            onTap: signIn,
           ),
         ],
       ),

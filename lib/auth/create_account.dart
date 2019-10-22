@@ -48,7 +48,7 @@ class _CreateAccountState extends State<CreateAccount> {
   ];
 
   void nextForm() {
-    var copyV  = _textValidations;
+    var copyV = _textValidations;
     var isTextEmpty = false;
     for (int i = 0; i < controllers[_firstIndex].length; i++) {
       var str = controllers[_firstIndex][i].text;
@@ -69,8 +69,7 @@ class _CreateAccountState extends State<CreateAccount> {
           _firstIndex++;
         });
       }
-    }
-    else{
+    } else {
       setState(() {
         _textValidations = copyV;
       });
@@ -83,6 +82,10 @@ class _CreateAccountState extends State<CreateAccount> {
         _firstIndex--;
       });
     }
+  }
+
+  bool obscureText(){
+    return _firstIndex == 0;
   }
 
   @override
@@ -158,7 +161,15 @@ class _CreateAccountState extends State<CreateAccount> {
                 labelStyle: TextStyle(color: Colors.white),
                 hintText: createQuestions[_firstIndex][0],
                 hintStyle: TextStyle(color: Colors.white),
-                errorText: !_textValidations[_firstIndex][0] ? 'Value Can\'t Be Empty' : null,
+                errorStyle: TextStyle(color: MainColor().darkMainColor()),
+                errorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: MainColor().darkMainColor(),
+                  ),
+                ),
+                errorText: !_textValidations[_firstIndex][0]
+                    ? 'Value Can\'t Be Empty'
+                    : null,
               ),
             ),
           ),
@@ -167,11 +178,20 @@ class _CreateAccountState extends State<CreateAccount> {
             title: TextField(
               style: TextStyle(color: Colors.white),
               controller: controllers[_firstIndex][1],
+              obscureText: obscureText(),
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: Colors.white),
                 hintText: createQuestions[_firstIndex][1],
                 hintStyle: TextStyle(color: Colors.white),
-                errorText: !_textValidations[_firstIndex][1] ? 'Value Can\'t Be Empty' : null,
+                errorStyle: TextStyle(color: MainColor().darkMainColor()),
+                errorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: MainColor().darkMainColor(),
+                  ),
+                ),
+                errorText: !_textValidations[_firstIndex][1]
+                    ? 'Value Can\'t Be Empty'
+                    : null,
               ),
             ),
           ),
@@ -179,12 +199,21 @@ class _CreateAccountState extends State<CreateAccount> {
             leading: createIcons[_firstIndex][2],
             title: TextField(
               style: TextStyle(color: Colors.white),
+              obscureText: obscureText(),
               controller: controllers[_firstIndex][2],
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: Colors.white),
                 hintText: createQuestions[_firstIndex][2],
                 hintStyle: TextStyle(color: Colors.white),
-                errorText: !_textValidations[_firstIndex][2] ? 'Value Can\'t Be Empty' : null,
+                errorStyle: TextStyle(color: MainColor().darkMainColor()),
+                errorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: MainColor().darkMainColor(),
+                  ),
+                ),
+                errorText: !_textValidations[_firstIndex][2]
+                    ? 'Value Can\'t Be Empty'
+                    : null,
               ),
             ),
           ),
