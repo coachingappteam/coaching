@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import '../my_teams/teams_detail_screen.dart';
 import '../models/team.dart';
 import '../main_color.dart';
+import '../training_plan/training_session/add_training_session.dart';
 
-class FeedScreen extends StatelessWidget {
+class FeedScreen extends StatefulWidget {
+  _FeedScreenState createState() => _FeedScreenState();
+}
+
+class _FeedScreenState extends State<FeedScreen> {
   static final list = [
     Team(
         teamId: 1,
@@ -94,6 +99,35 @@ class FeedScreen extends StatelessWidget {
       ),
     );
 
+    Future showAlert() {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              contentPadding: EdgeInsets.all(8.0),
+              title: Text('What do you want to add?'),
+              elevation: 8.0,
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AddTrainingSession()),
+                    );
+                  },
+                  child: Text('Training Session'),
+                ),
+                FlatButton(
+                  onPressed: () {},
+                  child: Text('Meet'),
+                ),
+              ],
+            );
+          });
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -103,16 +137,11 @@ class FeedScreen extends StatelessWidget {
         iconTheme: IconThemeData(
           color: MainColor().mainColor(),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.filter_list),
-          ),
-        ],
       ),
       body: makeBody,
       floatingActionButton: FloatingActionButton(
-        splashColor: MainColor().lightMainColor(),
-        onPressed: () {},
+        onPressed: showAlert,
+        backgroundColor: MainColor().darkMainColor(),
         child: Icon(Icons.add),
       ),
     );

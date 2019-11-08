@@ -7,6 +7,7 @@ class AddTeamScreen extends StatefulWidget {
 }
 
 class _AddTeamScreenState extends State<StatefulWidget> {
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -39,9 +40,7 @@ class _AddTeamScreenState extends State<StatefulWidget> {
             ),
             ListTile(
               leading: Icon(Icons.accessibility_new),
-              title: TextField(
-                decoration: InputDecoration(hintText: 'Sport'),
-              ),
+              title: DropdownButtonOptions(),
             ),
             ListTile(
               leading: Icon(Icons.drag_handle),
@@ -51,5 +50,35 @@ class _AddTeamScreenState extends State<StatefulWidget> {
             ),
           ],
         ));
+  }
+}
+
+class DropdownButtonOptions extends StatefulWidget {
+  _DropdownExampleState createState() => _DropdownExampleState();
+}
+
+class _DropdownExampleState extends State<DropdownButtonOptions> {
+  String _value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: DropdownButton<String>(
+        isExpanded: true,
+        items: [
+          DropdownMenuItem<String>(
+            child: Text('Swimming'),
+            value: 'Swimming',
+          ),
+        ],
+        onChanged: (String value) {
+          setState(() {
+            _value = value;
+          });
+        },
+        hint: Text('Select sport'),
+        value: _value,
+      ),
+    );
   }
 }
