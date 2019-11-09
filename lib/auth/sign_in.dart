@@ -1,15 +1,30 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../tab_navigation.dart';
 import '../main_color.dart';
 
 class SignIn extends StatefulWidget {
-  _SigInState createState() => _SigInState();
+  _SignInState createState() => _SignInState();
 }
 
-class _SigInState extends State<SignIn> {
-  var _controllers = [TextEditingController(),TextEditingController(),];
-  var _textValidations = [true,true];
+class _SignInState extends State<SignIn> {
+  var _controllers = [
+    TextEditingController(),
+    TextEditingController(),
+  ];
+  var _textValidations = [true, true];
+
+  Future<String> fetchPost() async {
+    var response = await http.get('https://jsonplaceholder.typicode.com/posts/',
+        headers: {"Accept": "application/json"});
+    print(response.body);
+
+    List data = jsonDecode(response.body);
+
+  }
 
   void signIn() {
     var copyV = _textValidations;
@@ -22,10 +37,32 @@ class _SigInState extends State<SignIn> {
       }
     }
     if (!isTextEmpty) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => TabNavigation()),
-      );
+      if (_controllers[0].text.contains("@")) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => TabNavigation()),
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            // return object of type Dialog
+            return AlertDialog(
+              title: new Text("This is not an email."),
+              content: new Text("please provide a real email."),
+              actions: <Widget>[
+                // usually buttons at the bottom of the dialog
+                new FlatButton(
+                  child: new Text("Close"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
     } else {
       setState(() {
         _textValidations = copyV;
@@ -64,9 +101,8 @@ class _SigInState extends State<SignIn> {
                     color: MainColor().darkMainColor(),
                   ),
                 ),
-                errorText: !_textValidations[0]
-                    ? 'Value Can\'t Be Empty'
-                    : null,
+                errorText:
+                    !_textValidations[0] ? 'Value Can\'t Be Empty' : null,
               ),
             ),
           ),
@@ -93,9 +129,8 @@ class _SigInState extends State<SignIn> {
                     color: MainColor().darkMainColor(),
                   ),
                 ),
-                errorText: !_textValidations[1]
-                    ? 'Value Can\'t Be Empty'
-                    : null,
+                errorText:
+                    !_textValidations[1] ? 'Value Can\'t Be Empty' : null,
               ),
             ),
           ),
@@ -103,7 +138,7 @@ class _SigInState extends State<SignIn> {
           ListTile(
             title: Center(
               child: Text(
-                ' Sign In ',
+                'Sign In',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: MainColor().mainColor(),

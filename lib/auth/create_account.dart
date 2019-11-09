@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
 
 import '../tab_navigation.dart';
 import '../main_color.dart';
@@ -47,6 +51,42 @@ class _CreateAccountState extends State<CreateAccount> {
     ]
   ];
 
+  showErrorDialog(String title, String body) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text(title),
+            content: new Text(body),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  Future<bool> createAccountDB() async {
+    var responseBody = {
+      "firstName": controllers[1][0].text,
+      "lastName": controllers[1][1].text,
+      "phone": controllers[1][2].text,
+      "password": controllers[0][1].text,
+      "email": controllers[0][0].text,
+    };
+    var response = await http.post(
+      "https://coachingpr.herokuapp.com/coach/signup", body: jsonEncode(responseBody),);
+
+    print(jsonEncode(responseBody));
+    print(response.body);
+  }
+
   void nextForm() {
     var copyV = _textValidations;
     var isTextEmpty = false;
@@ -59,15 +99,33 @@ class _CreateAccountState extends State<CreateAccount> {
     }
     if (!isTextEmpty) {
       if (_firstIndex == 1) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => TabNavigation()),
-        );
+//        Navigator.pushReplacement(
+//          context,
+//          MaterialPageRoute(builder: (context) => TabNavigation()),
+//        );
+      createAccountDB();
       } else {
-        setState(() {
-          print(_firstIndex);
-          _firstIndex++;
-        });
+        //Verify if confirm password and password are equals
+        String password = controllers[0][1].text;
+        String confirm = controllers[0][2].text;
+        if (password == confirm) {
+          if (controllers[0][0].text.contains('@')) {
+            setState(() {
+              print(_firstIndex);
+              _firstIndex++;
+            });
+          } else {
+            showErrorDialog(
+              "This is not an email.",
+              "please provide a real email.",
+            );
+          }
+        } else {
+          showErrorDialog(
+            "Password doesn't match",
+            "Please confirm that your password is the same with the confirm password",
+          );
+        }
       }
     } else {
       setState(() {
@@ -84,7 +142,7 @@ class _CreateAccountState extends State<CreateAccount> {
     }
   }
 
-  bool obscureText(){
+  bool obscureText() {
     return _firstIndex == 0;
   }
 
