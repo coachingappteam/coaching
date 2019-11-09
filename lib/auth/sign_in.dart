@@ -17,13 +17,40 @@ class _SignInState extends State<SignIn> {
   ];
   var _textValidations = [true, true];
 
-  Future<String> fetchPost() async {
-    var response = await http.get('https://jsonplaceholder.typicode.com/posts/',
-        headers: {"Accept": "application/json"});
+  Future<String> loginDB() async {
+    var responseBody = {
+      "email": _controllers[0].text,
+      "password": _controllers[1].text,
+    };
+    var response = await http.post("https://coachingpr.herokuapp.com/coach/login", headers: {"Content-Type": "application/json"}, body: jsonEncode(responseBody));
     print(response.body);
-
-    List data = jsonDecode(response.body);
-
+    var data = json.decode(response.body);
+    if(data['Error'] != null){
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("Error."),
+            content: new Text(data['Error']),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else{
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => TabNavigation()),
+      );
+    }
   }
 
   void signIn() {
@@ -38,10 +65,7 @@ class _SignInState extends State<SignIn> {
     }
     if (!isTextEmpty) {
       if (_controllers[0].text.contains("@")) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => TabNavigation()),
-        );
+      loginDB();
       } else {
         showDialog(
           context: context,

@@ -81,7 +81,10 @@ class _CreateAccountState extends State<CreateAccount> {
       "email": controllers[0][0].text,
     };
     var response = await http.post(
-      "https://coachingpr.herokuapp.com/coach/signup", body: jsonEncode(responseBody),);
+      "https://coachingpr.herokuapp.com/coach/signup",
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(responseBody),
+    );
 
     print(jsonEncode(responseBody));
     print(response.body);
@@ -103,7 +106,7 @@ class _CreateAccountState extends State<CreateAccount> {
 //          context,
 //          MaterialPageRoute(builder: (context) => TabNavigation()),
 //        );
-      createAccountDB();
+        createAccountDB();
       } else {
         //Verify if confirm password and password are equals
         String password = controllers[0][1].text;
