@@ -22,7 +22,8 @@ class _SignInState extends State<SignIn> {
       "email": _controllers[0].text,
       "password": _controllers[1].text,
     };
-    var response = await http.post("https://coachingpr.herokuapp.com/coach/login", headers: {"Content-Type": "application/json"}, body: jsonEncode(responseBody));
+//    var response = await http.post("https://coachingpr.herokuapp.com/coach/login", headers: {"Content-Type": "application/json"}, body: jsonEncode(responseBody));
+    var response = await http.get("https://my-json-server.typicode.com/typicode/demo/posts");
     print(response.body);
     var data = json.decode(response.body);
     if(data['Error'] != null){
@@ -46,6 +47,8 @@ class _SignInState extends State<SignIn> {
         },
       );
     } else{
+//      SharedPreferences pref = await SharedPreferences.getInstance();
+//      final token = pref.setString('token');
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => TabNavigation()),
