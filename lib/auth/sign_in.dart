@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../tab_navigation.dart';
 import '../main_color.dart';
@@ -22,11 +23,13 @@ class _SignInState extends State<SignIn> {
       "email": _controllers[0].text,
       "password": _controllers[1].text,
     };
-//    var response = await http.post("https://coachingpr.herokuapp.com/coach/login", headers: {"Content-Type": "application/json"}, body: jsonEncode(responseBody));
-    var response = await http.get("https://my-json-server.typicode.com/typicode/demo/posts");
+    var response = await http.post(
+        "https://coachingpr.herokuapp.com/coach/login",
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(responseBody));
     print(response.body);
     var data = json.decode(response.body);
-    if(data['Error'] != null){
+    if (data['Error'] != null) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -46,9 +49,13 @@ class _SignInState extends State<SignIn> {
           );
         },
       );
-    } else{
-//      SharedPreferences pref = await SharedPreferences.getInstance();
-//      final token = pref.setString('token');
+    } else {
+      print(data['token']);
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      final token = pref.setString(
+        'token',
+        data['token'],
+      );
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => TabNavigation()),
@@ -68,7 +75,7 @@ class _SignInState extends State<SignIn> {
     }
     if (!isTextEmpty) {
       if (_controllers[0].text.contains("@")) {
-      loginDB();
+        loginDB();
       } else {
         showDialog(
           context: context,
@@ -168,9 +175,9 @@ class _SignInState extends State<SignIn> {
                 'Sign In',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: MainColor().mainColor(),
-                    fontSize: 20.0,
-                    backgroundColor: Colors.white),
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
               ),
             ),
             onTap: signIn,

@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -86,8 +86,59 @@ class _CreateAccountState extends State<CreateAccount> {
       body: jsonEncode(responseBody),
     );
 
-    print(jsonEncode(responseBody));
+    var data = json.decode(response.body);
+    print(data['Error']);
+    if(data['Error'] != null){
+      showErrorDialog('Error', data['Error']);
+    } else{
+      tryLogin(controllers[0][0].text, controllers[0][1].text);
+    }
     print(response.body);
+  }
+
+  tryLogin(String email, String password) async {
+    var responseBody = {
+      "email": email,
+      "password": password,
+    };
+    var response = await http.post(
+        "https://coachingpr.herokuapp.com/coach/login",
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(responseBody));
+    print(response.body);
+    var data = json.decode(response.body);
+    if (data['Error'] != null) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("Error."),
+            content: new Text(data['Error']),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      print(data['token']);
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      final token = pref.setString(
+        'token',
+        data['token'],
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => TabNavigation()),
+      );
+    }
   }
 
   void nextForm() {
