@@ -13,19 +13,7 @@ class _CoachesScreenState extends State<CoachesScreen> {
   @override
   Widget build(BuildContext context) {
     List<Athlete> getAthletes() {
-      List<Athlete> athletes = [
-        Athlete(
-          id: 1,
-          firstName: 'Juan',
-          lastName: 'Arellano',
-          email: 'juan.arellano@upr.edu',
-          phone: '787-566-2114',
-          height: "5'6",
-          weight: 185,
-          birthDate: '15/ago/1996',
-          sex: 'M',
-        ),
-      ];
+      List<Athlete> athletes = [];
       return athletes;
     }
 

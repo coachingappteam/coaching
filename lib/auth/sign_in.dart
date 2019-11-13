@@ -20,7 +20,7 @@ class _SignInState extends State<SignIn> {
 
   Future<String> loginDB() async {
     var responseBody = {
-      "email": _controllers[0].text,
+      "email": _controllers[0].text.toLowerCase(),
       "password": _controllers[1].text,
     };
     var response = await http.post(

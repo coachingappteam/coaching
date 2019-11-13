@@ -6,7 +6,7 @@ class Athlete {
   final String email;
   final String height;
   final double weight;
-  final String birthDate;
+  final DateTime birthDate;
   final String sex;
 
   const Athlete({
