@@ -123,6 +123,10 @@ class _AddTeamScreenState extends State<StatefulWidget> {
 
 class DropdownButtonOptions extends StatefulWidget {
   _DropdownExampleState createState() => _DropdownExampleState();
+
+  getDropValue(){
+    return _DropdownExampleState().value;
+  }
 }
 
 class _DropdownExampleState extends State<DropdownButtonOptions> {

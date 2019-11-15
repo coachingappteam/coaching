@@ -12,10 +12,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  var _controllers = [
-    TextEditingController(),
-    TextEditingController(),
-  ];
+  var _controllers = [TextEditingController(), TextEditingController()];
   var _textValidations = [true, true];
 
   Future<String> loginDB() async {

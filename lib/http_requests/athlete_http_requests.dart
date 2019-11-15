@@ -20,4 +20,8 @@ class AthleteHttpRequests {
     );
     print(response.body);
   }
+
+  Future<String> createAthlete(Map<String, dynamic> athlete) async{
+
+  }
 }
