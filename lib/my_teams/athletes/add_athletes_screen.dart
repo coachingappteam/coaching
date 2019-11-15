@@ -12,7 +12,8 @@ class AddAthletesScreen extends StatefulWidget {
 }
 
 class _AddAthletesScreenState extends State<AddAthletesScreen> {
-  var dropDown = DropdownButtonOptions();
+  var options = ['M','F','X'];
+  var sex;
   var dateText = 'Choose Birthdate';
   var dateChosen = Text('Choose Birthdate');
 
@@ -33,7 +34,7 @@ class _AddAthletesScreenState extends State<AddAthletesScreen> {
       'phone': _controllers[2].text,
       'email': _controllers[3].text,
       'birthdate': birthDate,
-      'sex': this.dropDown.getDropValue()
+      'sex': sex,
     };
     print(athlete);
 //    AthleteHttpRequests().createAthlete(athlete);
@@ -143,27 +144,34 @@ class _AddAthletesScreenState extends State<AddAthletesScreen> {
               ),
             ),
           ),
-//          new ListTile(
-//            leading: const Icon(Icons.assignment_ind),
-//            title: new TextField(
-//              decoration: new InputDecoration(
-//                hintText: "Height",
-//                errorText:  !_textValidations[0] ? 'Value Can\'t Be Empty' : null,
-//              ),
-//            ),
-//          ),
-//          new ListTile(
-//            leading: const Icon(Icons.assignment_ind),
-//            title: new TextField(
-//              decoration: new InputDecoration(
-//                hintText: "Weight",
-//                errorText:  !_textValidations[0] ? 'Value Can\'t Be Empty' : null,
-//              ),
-//            ),
-//          ),
           new ListTile(
             leading: const Icon(Icons.supervised_user_circle),
-            title: this.dropDown,
+            title: Container(
+              child: DropdownButton<String>(
+                isExpanded: true,
+                items: [
+                  DropdownMenuItem<String>(
+                    child: Text(options[0]),
+                    value: 'M',
+                  ),
+                  DropdownMenuItem<String>(
+                    child: Text(options[1]),
+                    value: 'F',
+                  ),
+                  DropdownMenuItem<String>(
+                    child: Text(options[2]),
+                    value: 'X',
+                  ),
+                ],
+                onChanged: (String value) {
+                  setState(() {
+                    this.sex = value;
+                  });
+                },
+                hint: Text('Select sex'),
+                value: sex,
+              ),
+            ),
           ),
           const Divider(
             height: 1.0,
@@ -186,49 +194,6 @@ class _AddAthletesScreenState extends State<AddAthletesScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class DropdownButtonOptions extends StatefulWidget {
-  _DropdownExampleState createState() => _DropdownExampleState();
-
-  getDropValue() {
-    return _DropdownExampleState().value;
-  }
-}
-
-class _DropdownExampleState extends State<DropdownButtonOptions> {
-  var options = ['M','Female','Other'];
-  String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: DropdownButton<String>(
-        isExpanded: true,
-        items: [
-          DropdownMenuItem<String>(
-            child: Text(options[0]),
-            value: 'M',
-          ),
-          DropdownMenuItem<String>(
-            child: Text(options[1]),
-            value: 'F',
-          ),
-          DropdownMenuItem<String>(
-            child: Text(options[2]),
-            value: 'X',
-          ),
-        ],
-        onChanged: (String value) {
-          setState(() {
-            this.value = value;
-          });
-        },
-        hint: Text('Select sex'),
-        value: value,
       ),
     );
   }

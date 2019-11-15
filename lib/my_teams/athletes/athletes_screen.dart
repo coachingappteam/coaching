@@ -24,22 +24,24 @@ class _AthletesState extends State<AthletesScreen> {
   getTeams() async {
     var request = await AthleteHttpRequests().getAthletes();
     List<Athlete> athletes = [];
-    for (int i = 0; i < request.length; i++) {
-      var tmpRequestAthlete = request[i];
-      var tmpAthlete = Athlete(
-        id: tmpRequestAthlete['athleteID'],
-        firstName: tmpRequestAthlete['firstName'],
-        lastName: tmpRequestAthlete['lastName'],
-        email: tmpRequestAthlete['email'],
-        phone: tmpRequestAthlete['phone'],
-        birthDate: tmpRequestAthlete['birthDate'],
-        sex: tmpRequestAthlete['sex'],
-      );
-      athletes.add(tmpAthlete);
+    if(request != null){
+      for (int i = 0; i < request.length; i++) {
+        var tmpRequestAthlete = request[i];
+        var tmpAthlete = Athlete(
+          id: tmpRequestAthlete['athleteID'],
+          firstName: tmpRequestAthlete['firstName'],
+          lastName: tmpRequestAthlete['lastName'],
+          email: tmpRequestAthlete['email'],
+          phone: tmpRequestAthlete['phone'],
+          birthDate: tmpRequestAthlete['birthDate'],
+          sex: tmpRequestAthlete['sex'],
+        );
+        athletes.add(tmpAthlete);
+      }
+      setState(() {
+        athletesList = athletes;
+      });
     }
-    setState(() {
-      athletesList = athletes;
-    });
   }
 
   verifyListLength() {
