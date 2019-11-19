@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/team.dart';
 import '../main_color.dart';
 import 'coaches/coaches_screen.dart';
+import '../training_plan/training_plan_screen.dart';
 
 class TeamsMoreOptionsScreen extends StatefulWidget {
   final Team team;
@@ -51,7 +52,13 @@ class _TeamsMoreOptionsScreenState extends State<TeamsMoreOptionsScreen> {
               Icons.description,
               color: MainColor().mainColor(),
             ),
-            title: Text('General Information'),
+            title: Text('Training Plan'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TrainingPlanScreen(team: this.team,)),
+              );
+            },
           ),
           ListTile(
             leading: Icon(

@@ -52,8 +52,7 @@ class _AddTeamScreenState extends State<StatefulWidget> {
         showErrorDialog('No sport selected', 'Sport field can\'t be empty');
       } else{
         var request = await MyTeamsHttpRequests().createTeam(_controllers[0].text, _controllers[1].text);
-        var data = json.decode(request);
-        if(data['Success'] != null){
+        if(request != -1){
           Navigator.pop(context);
         } else{
           showErrorDialog('Unexpected error', 'Please try again');

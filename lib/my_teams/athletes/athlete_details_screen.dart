@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'athlete_results.dart';
+import 'package:coaching/my_teams/athletes/athlete_results.dart';
 import '../../models/athlete.dart';
 import '../../main_color.dart';
 

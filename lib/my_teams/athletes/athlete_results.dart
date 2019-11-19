@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'athlete_details_screen.dart';
+import 'package:coaching/my_teams/athletes/athlete_details_screen.dart';
 import '../../models/athlete.dart';
-import 'add_athletes_screen.dart';
+import 'package:coaching/my_teams/athletes/add_athletes_screen.dart';
 
 import '../../main_color.dart';
 
@@ -82,18 +82,6 @@ class _AthlereResultsState extends State<AthleteResults> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: makeBody,
-      floatingActionButton: FloatingActionButton(
-        splashColor: MainColor().lightMainColor(),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddAthletesScreen(),
-            ),
-          );
-        },
-        child: Icon(Icons.add),
-      ),
     );
   }
 }

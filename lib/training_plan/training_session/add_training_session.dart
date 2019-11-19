@@ -10,12 +10,14 @@ class AddTrainingSession extends StatefulWidget {
 
 class _AddTrainingSessionState extends State<AddTrainingSession> {
   DateTime _chosenDate = null;
-  Widget _getDate(){
-    if(_chosenDate == null){
+
+  Widget _getDate() {
+    if (_chosenDate == null) {
       return Text('Choose Date');
     }
     return Text('$_chosenDate');
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -38,79 +40,90 @@ class _AddTrainingSessionState extends State<AddTrainingSession> {
           ),
         ],
       ),
-      body: Column(
+      body: ListView(
         children: <Widget>[
-          Card(
-            elevation: 10.0,
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: Icon(Icons.description),
-                  title: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Practice name',
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.assignment),
-                  title: _DropdownButtonOptions(
-                    dropType: 'teamNames',
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.linear_scale),
-                  title: _DropdownButtonOptions(
-                    dropType: 'teamPlans',
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.date_range),
-                  title: FlatButton(
-                    onPressed: () {
-                      DatePicker.showDatePicker(context,
-                          showTitleActions: true,
-                          minTime: DateTime(2000, 1, 1),
-                          maxTime: DateTime(2022, 12, 31), onChanged: (date) {
-                        print('change $date');
-                      }, onConfirm: (date) {
-                        setState(() {
-                          _chosenDate = date;
-                        });
-                        print('confirm $date');
-                      }, currentTime: DateTime.now(), locale: LocaleType.en);
-                    },
-                    child: _getDate(),
-                  ),
-                ),
-                ListTile(
-                  title: Center(
-                    child: Text(
-                      'Exercises',
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                  ),
-                  trailing: IconButton(
-                    icon: Icon(
-                      Icons.add,
-                      color: MainColor().mainColor(),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddExerciseScreen(),
+          Column(
+            children: <Widget>[
+              Card(
+                elevation: 10.0,
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      leading: Icon(Icons.description),
+                      title: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Practice name',
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.assignment),
+                      title: _DropdownButtonOptions(
+                        dropType: 'teamNames',
+                      ),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.linear_scale),
+                      title: _DropdownButtonOptions(
+                        dropType: 'teamPlans',
+                      ),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.date_range),
+                      title: FlatButton(
+                        onPressed: () {
+                          DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              minTime: DateTime(2000, 1, 1),
+                              maxTime: DateTime(2022, 12, 31),
+                              onChanged: (date) {
+                            print('change $date');
+                          }, onConfirm: (date) {
+                            setState(() {
+                              _chosenDate = date;
+                            });
+                            print('confirm $date');
+                          },
+                              currentTime: DateTime.now(),
+                              locale: LocaleType.en);
+                        },
+                        child: _getDate(),
+                      ),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.add),
+                      title: Text('Warm Up'),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddExerciseScreen()));
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.add),
+                      title: Text('Main Set'),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddExerciseScreen()));
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.add),
+                      title: Text('Cool Down'),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddExerciseScreen()));
+                      },
+                    ),
+                  ],
                 ),
-//          ListView.builder(itemBuilder: null),
-              ],
-            ),
-          ),
-          ListTile(
-            title: Text('hi'),
+              ),
+            ],
           ),
         ],
       ),

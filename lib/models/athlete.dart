@@ -4,8 +4,6 @@ class Athlete {
   final String lastName;
   final String phone;
   final String email;
-  final String height;
-  final double weight;
   final DateTime birthDate;
   final String sex;
 
@@ -15,8 +13,6 @@ class Athlete {
     this.lastName,
     this.phone,
     this.email,
-    this.height,
-    this.weight,
     this.birthDate,
     this.sex,
   });

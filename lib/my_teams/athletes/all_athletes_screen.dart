@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'package:coaching/my_teams/athletes/athlete_details_screen.dart';
-import '../../http_requests/athlete_http_requests.dart';
-import '../../models/athlete.dart';
-import 'package:coaching/my_teams/athletes/add_athletes_screen.dart';
 import '../../main_color.dart';
-import '../../models/team.dart';
+import '../../models/athlete.dart';
+import 'athlete_details_screen.dart';
+import '../../http_requests/athlete_http_requests.dart';
+import 'add_athletes_screen.dart';
 
-class AthletesScreen extends StatefulWidget {
-  Team team;
-  AthletesScreen({@required this.team});
-  @override
-  _AthletesState createState() => _AthletesState(team: this.team);
+class AllAthletesScreen extends StatefulWidget {
+  _AllAthletesState createState() => _AllAthletesState();
 }
 
-class _AthletesState extends State<AthletesScreen> {
-  Team team;
+class _AllAthletesState extends State<AllAthletesScreen> {
   List<Athlete> athletesList = [];
-
-  _AthletesState({@required this.team});
 
   @override
   void initState() {
@@ -28,10 +21,10 @@ class _AthletesState extends State<AthletesScreen> {
   }
 
   getTeams() async {
-    var request = await AthleteHttpRequests().getAthletes(this.team);
+    var request = await AthleteHttpRequests().getAllAthletes();
 
     List<Athlete> athletes = [];
-    if(request != null){
+    if (request != null) {
       for (int i = 0; i < request.length; i++) {
         var tmpRequestAthlete = request[i];
         var tmpAthlete = Athlete(
@@ -62,7 +55,6 @@ class _AthletesState extends State<AthletesScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     ListTile makeListTile(Athlete athlete) => ListTile(
           onTap: () {
             Navigator.push(
@@ -111,7 +103,7 @@ class _AthletesState extends State<AthletesScreen> {
             child: makeListTile(athlete),
           ),
         );
-    Widget makeBody(){
+    Widget makeBody() {
       if (athletesList != null) {
         if (athletesList.length == 0) {
           return new Container(
@@ -141,6 +133,16 @@ class _AthletesState extends State<AthletesScreen> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text('Athletes'),
+        iconTheme: IconThemeData(
+          color: MainColor().mainColor(),
+        ),
+        actionsIconTheme: IconThemeData(
+          color: MainColor().mainColor(),
+        ),
+      ),
       backgroundColor: Colors.white,
       body: makeBody(),
       floatingActionButton: FloatingActionButton(

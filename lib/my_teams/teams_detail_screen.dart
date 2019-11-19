@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../models/team.dart';
 import 'teams_more_options_screen.dart';
-import './athletes/athletes_screen.dart';
-import './coaches/coaches_screen.dart';
+import 'package:coaching/my_teams/athletes/athletes_screen.dart';
+import '../training_plan/training_plan_screen.dart';
 import '../main_color.dart';
 
 class TeamsDetail extends StatefulWidget {
@@ -60,7 +60,7 @@ class _TabsScreenState extends State<TeamsDetail> {
                   Icons.description,
                   color: MainColor().mainColor(),
                 ),
-                text: 'Workouts',
+                text: 'Training Plans',
               ),
               Tab(
                 icon: Icon(
@@ -74,8 +74,8 @@ class _TabsScreenState extends State<TeamsDetail> {
         ),
         body: TabBarView(
           children: <Widget>[
-            AthletesScreen(),
-            AthletesScreen(),
+            TrainingPlanScreen(team: this.team),
+            AthletesScreen(team: this.team,),
           ],
         ),
       ),

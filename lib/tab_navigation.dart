@@ -4,6 +4,7 @@ import './feed/feed_screen.dart';
 import './my_teams/my_teams_screen.dart';
 import './statistics/statistics_screen.dart';
 import './more/more_screen.dart';
+import './my_teams/athletes/all_athletes_screen.dart';
 import 'main_color.dart';
 
 class TabNavigation extends StatefulWidget {
@@ -17,23 +18,10 @@ class _TabNavigationState extends State<TabNavigation> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Text> _widgetTitles = <Text>[
-    Text(
-      'Home',
-    ),
-    Text(
-      'My Teams',
-    ),
-    Text(
-      'Statistics',
-    ),
-    Text(
-      'More',
-    ),
-  ];
   static List<Widget> _widgetOptions = <Widget>[
     FeedScreen(),
     MyTeamsScreen(),
+    AllAthletesScreen(),
     StatisticsScreen(),
     MoreScreen()
   ];
@@ -60,6 +48,10 @@ class _TabNavigationState extends State<TabNavigation> {
           BottomNavigationBarItem(
             icon: new Icon(Icons.assignment),
             title: new Text('My Teams'),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.people),
+            title: new Text('Athletes'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.star),

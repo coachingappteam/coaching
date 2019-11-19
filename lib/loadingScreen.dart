@@ -32,6 +32,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             new FlatButton(
               child: new Text("Close"),
               onPressed: () {
+                Navigator.pop(context);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => AuthScreen()),
