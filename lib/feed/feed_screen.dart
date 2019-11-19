@@ -1,55 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../my_teams/teams_detail_screen.dart';
-import '../models/team.dart';
 import '../main_color.dart';
 import '../training_plan/training_session/add_training_session.dart';
+import '../http_requests/training_sessions_http_requests.dart';
+import '../models/feed_session.dart';
+import '../manager/date_convertert.dart';
 
 class FeedScreen extends StatefulWidget {
   _FeedScreenState createState() => _FeedScreenState();
 }
 
 class _FeedScreenState extends State<FeedScreen> {
-  static final list = [
-    Team(
-        teamId: 1,
-        teamName: "Swimming Team 1",
-        sport: "Swimming",
-        description: "Normal Description"),
-    Team(
-        teamId: 2,
-        teamName: "Swimming Team 2",
-        sport: "Swimming",
-        description: "Normal Description"),
-    Team(
-        teamId: 3,
-        teamName: "Swimming Team 3",
-        sport: "Swimming",
-        description: "Normal Description"),
-    Team(
-        teamId: 4,
-        teamName: "Swimming Team 4",
-        sport: "Swimming",
-        description: "Normal Description"),
-    Team(
-        teamId: 5,
-        teamName: "Swimming Team 5",
-        sport: "Swimming",
-        description: "Normal Description"),
-  ];
+  @override
+  initState() {
+    super.initState();
+    getSessions();
+  }
+
+  List<FeedSession> list = [];
+
+  Future<FeedSession> getSessions() async {
+    var request = await TrainingSessionsHttpRequests().getAll();
+    List<FeedSession> sess = [];
+    for (int i = 0; i < request.length; i++) {
+      var rSession = request[i];
+      var tmpSess = FeedSession(
+        title: rSession['title'],
+        teamName: rSession['teamName'],
+        coachID: rSession['coachID'],
+        isCompetition: rSession['isCompetition'],
+        location: rSession['location'],
+        planDescription: rSession['planDescription'],
+        planID: rSession['planID'],
+        sessionDate: DateFormat("yyyy/MM/dd", "en_US")
+            .parse(DateConverter().convertDate(rSession['sessionDate'])),
+        sessionDescription: rSession['sessionDescription'],
+        sessionID: rSession['sessionID'],
+        sessionTitle: rSession['sessionTitle'],
+        teamID: rSession['teamID'],
+      );
+      sess.add(tmpSess);
+    }
+    setState(() {
+      list = sess;
+    });
+  }
+
+  Widget trailing(FeedSession session) {
+    if (session.isCompetition) {
+      return Icon(
+        Icons.playlist_add_check,
+        color: MainColor().lightMainColor(),
+      );
+    } else {
+      return Icon(
+        Icons.description,
+        color: MainColor().lightMainColor(),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    ListTile makeListTile(Team team) => ListTile(
+    ListTile makeListTile(FeedSession session) => ListTile(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => TeamsDetail(
-                    //team: team,
-                    ),
-              ),
-            );
+//            Navigator.push(
+//              context,
+//              MaterialPageRoute(
+//                builder: (context) => TeamsDetail(
+//                    //team: team,
+//                    ),
+//              ),
+//            );
           },
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -64,40 +88,49 @@ class _FeedScreenState extends State<FeedScreen> {
             ),
           ),
           title: Text(
-            team.teamName,
+            session.sessionTitle,
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
           subtitle: Row(
             children: <Widget>[
-              Icon(
-                Icons.linear_scale,
-                color: MainColor().mainColor(),
+              Text('  '),
+              Text(
+                session.sessionDescription,
+                style: TextStyle(color: Colors.black),
               ),
-              Text(" Description ", style: TextStyle(color: Colors.black))
             ],
           ),
-          trailing:
-              Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+          trailing: trailing(session),
         );
 
-    Card makeCard(Team team) => Card(
+    Card makeCard(FeedSession session) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Container(
             decoration: BoxDecoration(color: Colors.white),
-            child: makeListTile(team),
+            child: makeListTile(session),
           ),
         );
-    final makeBody = Container(
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: list.length,
-        itemBuilder: (BuildContext context, int index) {
-          return makeCard(list[index]);
-        },
-      ),
-    );
+
+    Widget makeBody() {
+      if (list.length == 0) {
+        return new Container(
+          child: Center(
+            child: Text('No training sessions'),
+          ),
+        );
+      }
+      return Container(
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: list.length,
+          itemBuilder: (BuildContext context, int index) {
+            return makeCard(list[index]);
+          },
+        ),
+      );
+    }
 
     Future showAlert() {
       return showDialog(
@@ -138,7 +171,7 @@ class _FeedScreenState extends State<FeedScreen> {
           color: MainColor().mainColor(),
         ),
       ),
-      body: makeBody,
+      body: makeBody(),
       floatingActionButton: FloatingActionButton(
         onPressed: showAlert,
         backgroundColor: MainColor().darkMainColor(),

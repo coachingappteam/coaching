@@ -19,6 +19,7 @@ class _AuthScreenState extends State<AuthScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           textTheme: TextTheme(
             title: TextStyle(color: Colors.white, fontSize: 24.0),
             button: TextStyle(color: Colors.white, fontSize: 30.0)

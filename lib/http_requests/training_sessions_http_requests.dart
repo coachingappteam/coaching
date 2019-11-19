@@ -9,10 +9,7 @@ class TrainingSessionsHttpRequests {
   Future<List> getTrainingSessions(Team team) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
-    var body = {
-      "search": "",
-      "teamID": team.teamId
-    };
+    var body = {"search": "", "teamID": team.teamId};
     var response = await http.post(
       "https://coachingpr.herokuapp.com/plan/search",
       headers: {
@@ -24,5 +21,25 @@ class TrainingSessionsHttpRequests {
     var data = jsonDecode(response.body);
 
     return data['Plans'];
+  }
+
+  Future<List> getAll() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
+    var body = {
+      "search": "",
+    };
+    var response = await http.post(
+      "https://coachingpr.herokuapp.com/plan/session/timeline/search",
+      headers: {
+        "Content-Type": "application/json",
+        "token": token,
+      },
+      body: json.encode(body),
+    );
+    print(response.body);
+    var data = json.decode(response.body);
+
+    return data['Sessions'];
   }
 }

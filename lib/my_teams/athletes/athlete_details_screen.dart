@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:coaching/my_teams/athletes/athlete_results.dart';
+import 'roles/athlete_roles.dart';
 import '../../models/athlete.dart';
 import '../../main_color.dart';
 
@@ -54,24 +55,24 @@ class _AthleteDetailsSate extends State<AthleteDetailsScreen> {
             tabs: <Widget>[
               Tab(
                 icon: Icon(
+                  Icons.style,
+                  color: MainColor().mainColor(),
+                ),
+                text: 'Roles',
+              ),
+              Tab(
+                icon: Icon(
                   Icons.list,
                   color: MainColor().mainColor(),
                 ),
                 text: 'Results',
-              ),
-              Tab(
-                icon: Icon(
-                  Icons.check,
-                  color: MainColor().mainColor(),
-                ),
-                text: 'Attendance',
               ),
             ],
           ),
         ),
         body: TabBarView(
           children: <Widget>[
-            AthleteResults(),
+            AthleteRoles(athlete: this.athlete,),
             AthleteResults(),
           ],
         ),
