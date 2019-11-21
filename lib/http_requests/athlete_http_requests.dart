@@ -6,12 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/team.dart';
 
 class AthleteHttpRequests {
-  Future<List> getAthletes(Team team) async {
+  Future<List> getAthletes(int teamID) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
     var response = await http.get(
         'https://coachingpr.herokuapp.com/coach/team/member/athletes/' +
-            team.teamId.toString(),
+            teamID.toString(),
         headers: {
           "Content-Type": "application/json",
           "token": token,

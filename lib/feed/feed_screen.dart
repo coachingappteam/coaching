@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../my_teams/teams_detail_screen.dart';
 import '../main_color.dart';
 import '../training_plan/training_session/add_training_session.dart';
 import '../http_requests/training_sessions_http_requests.dart';

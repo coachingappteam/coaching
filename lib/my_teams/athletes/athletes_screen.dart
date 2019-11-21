@@ -28,7 +28,7 @@ class _AthletesState extends State<AthletesScreen> {
   }
 
   getTeams() async {
-    var request = await AthleteHttpRequests().getAthletes(this.team);
+    var request = await AthleteHttpRequests().getAthletes(this.team.teamId);
 
     List<Athlete> athletes = [];
     if(request != null){

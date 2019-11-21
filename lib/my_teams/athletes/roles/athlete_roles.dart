@@ -67,11 +67,28 @@ class _AthleteRolesState extends State<AthleteRoles> {
     }
   }
 
-  Future<bool> createRole() async{
-    bool success = await RolesHttpRequests().createRole(selectedRole, athlete.id);
-    if(success){
+  Future<bool> createRole() async {
+    bool success =
+        await RolesHttpRequests().createRole(selectedRole, athlete.id);
+    if (success) {
       Navigator.pop(context);
       getRoles(true);
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Already added role'),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("Close"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          });
     }
   }
 

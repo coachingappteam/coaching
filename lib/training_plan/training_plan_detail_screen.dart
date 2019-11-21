@@ -46,10 +46,6 @@ class _TrainingPlanDetailState extends State<TrainingPlanDetailScreen> {
           ),
           title: Text(this.plan.title),
           actions: <Widget>[
-//            IconButton(
-//              icon: Icon(Icons.info_outline),
-//              onPressed: goToInfo,
-//            )
           ],
           bottom: TabBar(
             labelColor: MainColor().mainColor(),
@@ -59,14 +55,14 @@ class _TrainingPlanDetailState extends State<TrainingPlanDetailScreen> {
                   Icons.description,
                   color: MainColor().mainColor(),
                 ),
-                text: 'Workouts',
+                text: 'Sessions',
               ),
             ],
           ),
         ),
         body: TabBarView(
           children: <Widget>[
-            TrainingSessionsScreen(),
+            TrainingSessionsScreen(plan: this.plan,),
           ],
         ),
       ),
