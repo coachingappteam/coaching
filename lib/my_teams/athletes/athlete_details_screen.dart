@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:coaching/my_teams/athletes/athlete_results.dart';
 import 'roles/athlete_roles.dart';
+import 'results/athlete_results.dart';
 import '../../models/athlete.dart';
 import '../../main_color.dart';
 
@@ -73,7 +73,7 @@ class _AthleteDetailsSate extends State<AthleteDetailsScreen> {
         body: TabBarView(
           children: <Widget>[
             AthleteRoles(athlete: this.athlete,),
-            AthleteResults(),
+            AthleteResults(athlete: this.athlete,),
           ],
         ),
       ),

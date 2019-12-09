@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Result {
+class ChartResult {
   final int id;
   final String firstName;
   final String lastName;
@@ -9,7 +9,7 @@ class Result {
   final DateTime sessionDate;
   final String unit;
 
-  Result({
+  ChartResult({
     @required this.id,
     @required this.firstName,
     @required this.sessionDate,

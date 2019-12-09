@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../main_color.dart';
+import 'settings.dart';
 
 class MoreScreen extends StatelessWidget {
   @override
@@ -20,22 +21,14 @@ class MoreScreen extends StatelessWidget {
             child: IconButton(
               icon: Icon(Icons.settings),
               color: MainColor().mainColor(),
-            ),
-          ),
-          Container(
-            height: 40,
-            child: IconButton(
-              icon: Icon(Icons.supervised_user_circle),
-              color: MainColor().mainColor(),
-              splashColor: Colors.pink,
-
-            ),
-          ),
-          Container(
-            height: 40,
-            child: IconButton(
-              icon: Icon(Icons.tune),
-              color: MainColor().mainColor(),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Settings(),
+                  ),
+                );
+              },
             ),
           ),
         ],

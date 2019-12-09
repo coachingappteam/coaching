@@ -3,7 +3,7 @@ import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 import '../http_requests/statistics_http_requests.dart';
-import '../models/result.dart';
+import '../models/chart_result.dart';
 import 'add_graph.dart';
 import 'package:intl/intl.dart';
 import '../manager/date_convertert.dart';
@@ -14,9 +14,9 @@ class Chars extends StatefulWidget {
 }
 
 class _ChartsState extends State<Chars> {
-  List<Result> results = [];
+  List<ChartResult> results = [];
   List<double> data = [];
-  List<charts.Series<Result, double>> seriesList = [];
+  List<charts.Series<ChartResult, double>> seriesList = [];
 
   @override
   void initState() {
@@ -27,11 +27,11 @@ class _ChartsState extends State<Chars> {
 
   getResults() async {
     var request = await StatisticsHttpRequests().getAnalytics(1, 5);
-    List<Result> tmpR = [];
+    List<ChartResult> tmpR = [];
     List<double> nm = [];
     for (int i = 0; i < request.length; i++) {
       var r = request[i];
-      var tmpResult = Result(
+      var tmpResult = ChartResult(
         id: i + 1,
         firstName: r['firstName'],
         sessionDate: DateFormat("yyyy/MM/dd", "en_US")
@@ -45,10 +45,10 @@ class _ChartsState extends State<Chars> {
       nm.add(i.toDouble());
     }
     var tmpS = [
-      charts.Series<Result, double>(
+      charts.Series<ChartResult, double>(
         id: 'Result',
-        domainFn: (Result results, _) => results.id.toDouble(),
-        measureFn: (Result results, _) => results.result,
+        domainFn: (ChartResult results, _) => results.id.toDouble(),
+        measureFn: (ChartResult results, _) => results.result,
         data: tmpR,
       )
     ];
