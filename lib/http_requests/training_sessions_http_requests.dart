@@ -45,7 +45,39 @@ class TrainingSessionsHttpRequests {
     return data['Sessions'];
   }
 
-  Future<List> getExercises(Session session) async{
+  Future<dynamic> getSession(int sessionID) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.get('token');
+    var response = await http.get(
+      "https://coachingpr.herokuapp.com/plan/session/details/" +
+          sessionID.toString(),
+      headers: {
+        "Content-Type": "application/json",
+        "token": token,
+      },
+    );
 
+    var data = json.decode(response.body);
+    return data['Plan'];
+  }
+
+  Future<dynamic> getSessionDetails(int sessionID) async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.get('token');
+    var body = {
+      "search": "",
+      "parentSessionID": sessionID
+    };
+    var response = await http.post(
+      "https://coachingpr.herokuapp.com/plan/session/search/sub",
+      headers: {
+        "Content-Type": "application/json",
+        "token": token,
+      },
+      body: json.encode(body)
+    );
+
+    var data = json.decode(response.body);
+    return data['Sessions'];
   }
 }

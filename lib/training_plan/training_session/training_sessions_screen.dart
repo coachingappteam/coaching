@@ -77,7 +77,8 @@ class _TrainingSessionsState extends State<TrainingSessionsScreen> {
               context,
               MaterialPageRoute(
                 builder: (context) => TrainingSessionDetails(
-                  session: session,
+                  sessionID: session.sessionID,
+                  isLast: session.parentPlanID == null,
                 ),
               ),
             );

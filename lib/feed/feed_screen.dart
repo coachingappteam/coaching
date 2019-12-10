@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../main_color.dart';
 import '../training_plan/training_session/add_training_session.dart';
+import '../training_plan/training_session/training_session_details.dart';
 import '../http_requests/training_sessions_http_requests.dart';
 import '../models/feed_session.dart';
 import '../manager/date_convertert.dart';
@@ -65,14 +66,15 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget build(BuildContext context) {
     ListTile makeListTile(FeedSession session) => ListTile(
           onTap: () {
-//            Navigator.push(
-//              context,
-//              MaterialPageRoute(
-//                builder: (context) => TeamsDetail(
-//                    //team: team,
-//                    ),
-//              ),
-//            );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TrainingSessionDetails(
+                  sessionID: session.sessionID,
+                  isLast: session.isCompetition,
+                ),
+              ),
+            );
           },
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),

@@ -19,19 +19,44 @@ class CategoryItem extends StatelessWidget {
         ),
       );
     } else if (this.title == 'Athletes Attendance') {
-      Navigator.push(
-        ctx,
-        MaterialPageRoute(
-          builder: (context) => AthletesAttendanceSetupScreen(),
-        ),
-      );
+      showDialog(
+          context: ctx,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              contentPadding: EdgeInsets.all(8.0),
+              title: Text('Feature not yet available'),
+              content: Text('This feature will coming soon'),
+              elevation: 8.0,
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Dismiss'),
+                ),
+              ],
+            );
+          });
+
     } else if (this.title == 'Training Plan') {
-      Navigator.push(
-        ctx,
-        MaterialPageRoute(
-          builder: (context) => TrainingPlanSetupScreen(),
-        ),
-      );
+      showDialog(
+          context: ctx,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              contentPadding: EdgeInsets.all(8.0),
+              title: Text('Feature not yet available'),
+              content: Text('This feature will coming soon'),
+              elevation: 8.0,
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Dismiss'),
+                ),
+              ],
+            );
+          });
     }
   }
 

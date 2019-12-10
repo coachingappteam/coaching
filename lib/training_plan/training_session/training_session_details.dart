@@ -2,43 +2,75 @@ import 'package:flutter/material.dart';
 import '../../models/session.dart';
 import '../../main_color.dart';
 import 'exercises_screen.dart';
+import 'package:intl/intl.dart';
+
+import '../../http_requests/training_sessions_http_requests.dart';
+import '../../manager/date_convertert.dart';
 
 class TrainingSessionDetails extends StatefulWidget {
-  final Session session;
+  final int sessionID;
   final bool isLast;
 
-  TrainingSessionDetails({@required this.session, this.isLast});
+  TrainingSessionDetails({@required this.sessionID, this.isLast});
 
   _TrainingSessionState createState() =>
-      _TrainingSessionState(session: session, isLast: isLast);
+      _TrainingSessionState(sessionID: sessionID, isLast: isLast);
 }
 
 class _TrainingSessionState extends State<TrainingSessionDetails> {
-  final Session session;
+  final int sessionID;
   final bool isLast;
+  Session session;
+  String sessionTitle = '';
 
-  _TrainingSessionState({@required this.session, this.isLast});
+  _TrainingSessionState({@required this.sessionID, @required this.isLast});
+
+  @override
+  initState() {
+    super.initState();
+    getSession();
+  }
+
+  getSession() async {
+    var response = await TrainingSessionsHttpRequests().getSession(sessionID);
+    Session tmp = Session(
+      isCompetition: response['isCompetition'],
+      sessionTitle: response['sessionTitle'],
+      sessionID: response['sessionID'],
+      sessionDescription: response['sessionDescription'],
+      sessionDate: DateFormat("yyyy/MM/dd", "en_US")
+          .parse(DateConverter().convertDate(response['sessionDate'])),
+      location: response['location'],
+      parentPlanID: response['parentPlanID'],
+    );
+    setState(() {
+      this.session = tmp;
+      this.sessionTitle = this.session.sessionTitle;
+      print(this.session);
+    });
+  }
 
   List<Widget> getWidgets() {
     if (isLast) {
       return [
         ExercisesScreen(
-          session: this.session,
+          sessionID: this.sessionID,
+          subSessionID: 0,
         ),
       ];
     } else {
       return [
-        TrainingSessionDetails(
-          session: session,
-          isLast: true,
+        ExercisesScreen(
+          sessionID: this.sessionID,
+          subSessionID: 0,
         ),
-        TrainingSessionDetails(
-          session: session,
-          isLast: true,
+        ExercisesScreen(
+          sessionID: this.sessionID,
+          subSessionID: 1,
         ),
-        TrainingSessionDetails(
-          session: session,
-          isLast: true,
+        ExercisesScreen(
+          sessionID: this.sessionID,
+          subSessionID: 2,
         ),
       ];
     }
@@ -52,7 +84,7 @@ class _TrainingSessionState extends State<TrainingSessionDetails> {
             Icons.description,
             color: MainColor().mainColor(),
           ),
-          text: 'Exercises',
+          text: 'Events',
         ),
       ];
     } else {
@@ -62,21 +94,21 @@ class _TrainingSessionState extends State<TrainingSessionDetails> {
             Icons.description,
             color: MainColor().mainColor(),
           ),
-          text: 'Exercises',
+          text: 'Warm Up',
         ),
         Tab(
           icon: Icon(
             Icons.description,
             color: MainColor().mainColor(),
           ),
-          text: 'Exercises',
+          text: 'Main Session',
         ),
         Tab(
           icon: Icon(
             Icons.description,
             color: MainColor().mainColor(),
           ),
-          text: 'Exercises',
+          text: 'Cool Down',
         ),
       ];
     }
@@ -97,27 +129,20 @@ class _TrainingSessionState extends State<TrainingSessionDetails> {
           actionsIconTheme: IconThemeData(
             color: MainColor().mainColor(),
           ),
-          title: Text(this.session.sessionTitle),
-          actions: <Widget>[],
+          title: Text(this.sessionTitle),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.more_horiz),
+              onPressed: () {},
+            ),
+          ],
           bottom: TabBar(
             labelColor: MainColor().mainColor(),
-            tabs: <Widget>[
-              Tab(
-                icon: Icon(
-                  Icons.description,
-                  color: MainColor().mainColor(),
-                ),
-                text: 'Exercises',
-              ),
-            ],
+            tabs: getTabs(),
           ),
         ),
         body: TabBarView(
-          children: <Widget>[
-            ExercisesScreen(
-              session: this.session,
-            ),
-          ],
+          children: getWidgets(),
         ),
       ),
     );

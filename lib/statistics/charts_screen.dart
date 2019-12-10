@@ -80,28 +80,6 @@ class _ChartsState extends State<Chars> {
     }
     return Column(
       children: <Widget>[
-//        Card(
-//          child: ListTile(
-//            title: Text(
-//              results[0].firstName +
-//                  ' ' +
-//                  results[0].lastName +
-//                  ': ' +
-//                  results[0].roleName,
-//              style: TextStyle(fontSize: 28.0),
-//            ),
-//            subtitle: Center(
-//              child: new Container(
-//                width: 300.0,
-//                height: 200.0,
-//                child: new Sparkline(
-//                  data: data,
-//                  lineColor: MainColor().mainColor(),
-//                ),
-//              ),
-//            ),
-//          ),
-//        ),
         Container(
           height: 400,
           width: MediaQuery.of(context).size.width,
